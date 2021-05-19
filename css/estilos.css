@@ -473,3 +473,7 @@ width: 180px;
     display: block;
     margin: 0 auto;
 }
+
+.tituloCard{
+    text-align: center;
+}

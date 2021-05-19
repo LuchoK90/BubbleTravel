@@ -10,7 +10,7 @@
       <title>Bubble Travel</title>
 
     <!-- Bootstrap -->
-       
+   
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -20,14 +20,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="imagenes/vnd.microsoft.icon" href="imagenes/icono.ico">
-
-     
-
 
   </head>
 
@@ -38,7 +36,7 @@
   =========================================================-->
    <header class="header col-md-12" >  
     <div class="espacio col-md-4"></div>
-   <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
+ <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
     <div class="espacio col-md-4"></div>
       
     </header>
@@ -60,10 +58,10 @@
       <li class="nav-item">
         <a class="nav-link" href="home.html">Home </a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="crearViaje.html">Crear un Viaje</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="misViajes.html">Mis Viajes</a>
       </li>
     </ul>
@@ -85,42 +83,38 @@
       
 
         <div class="container col-md-12">
-<div class="col-md-12 panelEstudios">
 
+          <div class="contenedorFormularioSubir col-md-12">
+          <h3 class="col-md-12"> <i class="fas fa-concierge-bell"></i> AGREGAR ALOJAMIENTO</h3><br>
 
-</div>
-          <div id="accordion">
-    <div class="card">
-      <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapseOne">
-          EUROPA 2021
-        </a>
-        
-        
+          <div class="col-md-12">
+
+           <form action="">
+            <div class="col-md-12" style="float: left;">
+          <label class="col-md-3" style="float:left; margin-top: 5px;">NOMBRE: </label> <input class="inputSubir col-md-9" type="text" id="nombre" name="nombre" required><br>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-IN: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio" required>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-OUT: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio" required><br><br><br>
+
+           <label class="col-md-3" style="float:left; margin-top: 5px;">DESTINO: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="fechaInicio" name="fechaInicio" placeholder="-" required>
          
-         <a class="card-link iconCard"  href="#">
-          <i class="fas fa-trash-alt"></i>
-        </a>
+    <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="valor" name="valor" placeholder="($)" required>
+ 
+                    
+</div>
+      
 
-         <a class="card-link iconCard"  href="editarViaje.html">
-          <i class="fas fa-pencil-ruler"></i>
-        </a>
-        
-        <a class="card-link iconCard"  href="verViaje.html">
-          <i class="far fa-eye"></i>
-        </a>
+      <div class="col-md-12" style="float: left;"> <br>
+        <input class="botonFormularioSubir" data-dismiss="modal" type="submit" value="CONFIRMAR">
       </div>
-      <div id="collapseOne" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> 05/10/2021</span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> CANTIDAD DE DÍAS:</b> 15</span> <span class="col-md-4 texto-card-body"><b><i class="fas fa-users"></i> CANTIDAD DE VIAJEROS:</b> 2</span>
+        </form>
+
         </div>
-      </div>
-    </div>
-  </div>
- </div>  
+
+        </div> 
+
+        </div>  
 
 </main>
-
 
     <!--========================================================
                             FOOTER
@@ -130,10 +124,26 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->         
     <script src="js/bootstrap.min.js"></script>
  <script src="js/tm-scripts.js"></script>    
-
-
   <!-- </script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+   
 
+    <script type="text/javascript">
+      $("#file-1").fileinput({
+    theme: 'fa',
+    uploadUrl: '#',
+    allowedFileExtensions: ['jpg', 'png', 'pdf','doc'],
+    overwriteInitial: false,
+    maxFileSize:2000,
+    maxFilesNum: 10,
+    slugCallback: function (filename) {
+        return filename.replace('(', '_').replace(']', '_');
+    }
+});
+    </script>
 
   </body>
 </html>
