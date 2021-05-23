@@ -32,7 +32,7 @@ opacity: 0.5;
 .container{
 	float: left;
 	min-height: 600px;
-	background-image: url("fondoavion.jpg");
+	background-image: url("fondoavion.JPG");
   	background-repeat: no-repeat;
   	background-size: cover;
 }
