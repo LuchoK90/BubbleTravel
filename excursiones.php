@@ -3,6 +3,19 @@ session_start();
 if ( isset( $_SESSION["Usuario"] ) ) {
 include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
+
+$idViaje=$_GET["id"];
+
+$viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
+
+
+    $viaje->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $viaje->execute(); 
+
+       $viaje = $viaje->fetch()
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +82,7 @@ $idUsuario=$_SESSION['Usuario']['id'];
       <li class="nav-item ">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
     </ul>
@@ -77,7 +90,7 @@ $idUsuario=$_SESSION['Usuario']['id'];
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     ¡HOLA  <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="miPerfil.php">Ver Perfil</a>
     <hr>
     <a class="dropdown-item" href="cerrarSesion.php">Cerrar Sesión</a>
@@ -91,50 +104,52 @@ $idUsuario=$_SESSION['Usuario']['id'];
       
 
         <div class="container col-md-12">
+          <h3 class="tituloCard">  <i class="fas fa-bus"></i> EXCURSIONES DE <?php echo strtoupper($viaje["nombre"]); ?></h3>
 <div class="col-md-12 panelEstudios">
 
-
+<a href="agregarExcursion.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR EXCURSIÓN</button></a>
 </div>
           <div id="accordion">
-            <?php
-      $viajes = $conexion->prepare("SELECT * FROM viaje WHERE id_usuario=:idUsuario");
-      $viajes->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajes->execute();
+    <?php
+      $excursiones = $conexion->prepare("SELECT * FROM excursiones WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
+      $excursiones->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $excursiones->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $excursiones->execute();
 
-      while ( $viaje = $viajes->fetch() ) {
+      while ( $excursion = $excursiones->fetch() ) {
+
+        $fecha = strtotime($excursion["fecha"]);
+        $fecha = date("d-m-Y", $fecha);
     ?>
     <div class="card">
       <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $viaje["id"]; ?>">
-          <?php echo $viaje["nombre"]; ?>
+        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $excursion["id"]; ?>">
+           <?php echo $excursion["nombre"]; ?>
         </a>
         
         
          
-         <a class="card-link iconCard"  href="eliminarViaje.php?id=<?php echo $viaje['id']; ?>">
+          <a class="card-link iconCard"  href="eliminarExcursion.php?idE=<?php echo $excursion['id']; ?>&idV=<?php echo $idViaje; ?>">
           <i class="fas fa-trash-alt"></i> ELIMINAR
         </a>
 
-         <a class="card-link iconCard"  href="editarViaje.php?id=<?php echo $viaje['id']; ?>">
+         <a class="card-link iconCard"  href="editarExcursion.php?idE=<?php echo $excursion['id']; ?>&idV=<?php echo $idViaje; ?>">
           <i class="fas fa-pencil-ruler"></i> EDITAR
         </a>
         
-        <a class="card-link iconCard"  href="verViaje.php?id=<?php echo $viaje['id']; ?>">
-          <i class="far fa-eye"></i> DETALLAR
-        </a>
       </div>
-      <div id="collapse<?php echo $viaje["id"]; ?>" class="collapse" data-parent="#accordion">
+      <div id="collapse<?php echo $excursion["id"]; ?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> 00/00/0000</span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> CANTIDAD DE DÍAS:</b> 0</span> <span class="col-md-4 texto-card-body"><b><i class="fas fa-users"></i> CANTIDAD DE VIAJEROS:</b> 0</span>
+          <span class="col-md-6 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b>  <?php echo $fecha; ?> </span>
+   
+          <span class="col-md-6 texto-card-body"><b><i class="far fa-money-bill-alt"></i> VALOR:</b> $  <?php echo $excursion["valor"]; ?></span> 
         </div>
       </div>
     </div><br>
-<?php } ?>
+    <?php } ?>
   </div>
-
-
  </div>  
-   <?php } else { header('Location: miBubbleTravel.php'); } ?> 
+ <?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
 
 

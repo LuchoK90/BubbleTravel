@@ -3,6 +3,19 @@ session_start();
 if ( isset( $_SESSION["Usuario"] ) ) {
 include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
+
+$idViaje=$_GET["id"];
+
+$viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
+
+
+    $viaje->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $viaje->execute(); 
+
+       $viaje = $viaje->fetch()
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,24 +29,22 @@ $idUsuario=$_SESSION['Usuario']['id'];
       <title>Bubble Travel</title>
 
     <!-- Bootstrap -->
-       
+   
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="imagenes/vnd.microsoft.icon" href="imagenes/icono.ico">
-
-     
-
 
   </head>
 
@@ -44,7 +55,7 @@ $idUsuario=$_SESSION['Usuario']['id'];
   =========================================================-->
    <header class="header col-md-12" >  
     <div class="espacio col-md-4"></div>
-   <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
+     <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
     <div class="espacio col-md-4"></div>
       
     </header>
@@ -66,18 +77,18 @@ $idUsuario=$_SESSION['Usuario']['id'];
       <li class="nav-item">
         <a class="nav-link" href="home.php">Home </a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
     </ul>
     <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     ¡HOLA  <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="miPerfil.php">Ver Perfil</a>
     <hr>
     <a class="dropdown-item" href="cerrarSesion.php">Cerrar Sesión</a>
@@ -91,52 +102,53 @@ $idUsuario=$_SESSION['Usuario']['id'];
       
 
         <div class="container col-md-12">
-<div class="col-md-12 panelEstudios">
+ <h1 class="col-md-12" style="text-align: center;"><?php echo strtoupper($viaje["nombre"]); ?></h1><br>
+       <a href="transporte.html"> <div class="botonHome col-md-3">
+         <i class="fas fa-plane"></i><br>
+          TRANSPORTE
+        </div> </a>
+
+<div class="espacio col-md-1"></div>
+
+         <a href="destinos.html"><div class="botonHome col-md-4">
+          <i class="fas fa-map-marker-alt"></i><br>
+          DESTINOS
+        </div> </a>
+
+<div class="espacio col-md-1"></div>
+
+        <a href="alojamientos.html"><div class="botonHome col-md-3">
+         <i class="fas fa-concierge-bell"></i><br>
+          ALOJAMIENTOS
+        </div> </a>
+
+  <div class="espacio col-md-2"></div>
 
 
+         <a href="viajeros.html"><div class="botonHome col-md-3">
+          <i class="fas fa-users"></i><br>
+          VIAJEROS
+        </div> </a>
+
+<div class="espacio col-md-2"></div>
+
+         <a href="excursiones.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
+          <i class="fas fa-bus"></i><br>
+          EXCURSIONES
+        </div> </a>
+<div class="espacio col-md-2"></div>
+
+<div class="contenedorResumenViaje col-md-12">
+  <h2><b>RESUMEN</b></h2>
+<p><b>DÍAS TOTALES: </b>15</p>
+<p><b>FECHA DE SALIDA: </b>05/10/2021</p>
+<p><b>CANTIDAD DE DESTINOS: </b>8</p>
+<p><b>CANTIDAD DE VIAJEROS: </b>2</p>
+<p><b>PRESUPUESTO PROMEDIO REAL / PRESUPESTO ESTIMADO: </b>$ 250.00 / $300.000</p>
 </div>
-          <div id="accordion">
-            <?php
-      $viajes = $conexion->prepare("SELECT * FROM viaje WHERE id_usuario=:idUsuario");
-      $viajes->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajes->execute();
-
-      while ( $viaje = $viajes->fetch() ) {
-    ?>
-    <div class="card">
-      <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $viaje["id"]; ?>">
-          <?php echo $viaje["nombre"]; ?>
-        </a>
-        
-        
-         
-         <a class="card-link iconCard"  href="eliminarViaje.php?id=<?php echo $viaje['id']; ?>">
-          <i class="fas fa-trash-alt"></i> ELIMINAR
-        </a>
-
-         <a class="card-link iconCard"  href="editarViaje.php?id=<?php echo $viaje['id']; ?>">
-          <i class="fas fa-pencil-ruler"></i> EDITAR
-        </a>
-        
-        <a class="card-link iconCard"  href="verViaje.php?id=<?php echo $viaje['id']; ?>">
-          <i class="far fa-eye"></i> DETALLAR
-        </a>
-      </div>
-      <div id="collapse<?php echo $viaje["id"]; ?>" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> 00/00/0000</span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> CANTIDAD DE DÍAS:</b> 0</span> <span class="col-md-4 texto-card-body"><b><i class="fas fa-users"></i> CANTIDAD DE VIAJEROS:</b> 0</span>
-        </div>
-      </div>
-    </div><br>
-<?php } ?>
-  </div>
-
-
- </div>  
-   <?php } else { header('Location: miBubbleTravel.php'); } ?> 
+</div>
+  <?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
-
 
     <!--========================================================
                             FOOTER
@@ -146,8 +158,6 @@ $idUsuario=$_SESSION['Usuario']['id'];
     <!-- Include all compiled plugins (below), or include individual files as needed -->         
     <script src="js/bootstrap.min.js"></script>
  <script src="js/tm-scripts.js"></script>    
-
-
   <!-- </script> -->
 
 
