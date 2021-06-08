@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2021 a las 00:09:25
+-- Tiempo de generación: 08-06-2021 a las 02:27:36
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -96,6 +96,28 @@ INSERT INTO `viaje` (`id`, `id_usuario`, `nombre`, `presupuesto`) VALUES
 (5, 6, 'Brasil 2023', 100000),
 (6, 8, 'Japón 2025', 500000);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `viajeros`
+--
+
+CREATE TABLE `viajeros` (
+  `id` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `presupuesto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `viajeros`
+--
+
+INSERT INTO `viajeros` (`id`, `id_viaje`, `id_usuario`, `nombre`, `presupuesto`) VALUES
+(2, 5, 6, 'Gerónimo', 6000),
+(3, 1, 6, 'Alejandra', 900);
+
 --
 -- Índices para tablas volcadas
 --
@@ -119,6 +141,12 @@ ALTER TABLE `viaje`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `viajeros`
+--
+ALTER TABLE `viajeros`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -139,6 +167,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `viaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `viajeros`
+--
+ALTER TABLE `viajeros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

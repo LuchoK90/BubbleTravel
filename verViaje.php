@@ -125,7 +125,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
   <div class="espacio col-md-2"></div>
 
 
-         <a href="viajeros.html"><div class="botonHome col-md-3">
+         <a href="viajeros.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
           <i class="fas fa-users"></i><br>
           VIAJEROS
         </div> </a>
