@@ -6,6 +6,10 @@ $idUsuario=$_SESSION['Usuario']['id'];
 
 $idViaje=$_GET["id"];
 
+@$busqueda=$_POST["busqueda"];
+
+
+
 $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
 
@@ -29,22 +33,24 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       <title>Bubble Travel</title>
 
     <!-- Bootstrap -->
-   
+       
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="imagenes/vnd.microsoft.icon" href="imagenes/icono.ico">
+
+     
+
 
   </head>
 
@@ -55,7 +61,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
   =========================================================-->
    <header class="header col-md-12" >  
     <div class="espacio col-md-4"></div>
-     <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
+   <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
     <div class="espacio col-md-4"></div>
       
     </header>
@@ -77,7 +83,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       <li class="nav-item">
         <a class="nav-link" href="home.php">Home </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
       <li class="nav-item">
@@ -85,7 +91,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       </li>
     </ul>
     <div class="dropdown">
- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     ¡HOLA  <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
   </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -102,53 +108,72 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       
 
         <div class="container col-md-12">
- <h1 class="col-md-12" style="text-align: center;"><?php echo strtoupper($viaje["nombre"]); ?></h1><br>
-       <a href="transporte.html"> <div class="botonHome col-md-3">
-         <i class="fas fa-plane"></i><br>
-          TRANSPORTE
-        </div> </a>
+          <h3 class="tituloCard"> <i class="fas fa-map-marker-alt"></i> DESTINOS DE <?php echo strtoupper($viaje["nombre"]); ?></h3>
+<div class="col-md-12 panelEstudios">
 
-<div class="espacio col-md-1"></div>
+<a href="agregarDestino.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR DESTINO</button></a>
 
-         <a href="destinos.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
-          <i class="fas fa-map-marker-alt"></i><br>
-          DESTINOS
-        </div> </a>
+<a style="float: right; text-align: center; text-decoration: none; height: 30px;" class="botonFormularioSubir col-md-2" href="destinos.php?id=<?php echo $idViaje; ?>">Mostrar Todos</a>
 
-<div class="espacio col-md-1"></div>
+ <form action="destinos.php?id=<?php echo $idViaje; ?>" method="POST">
+            <div class="col-md-6" style="float: right;">
+           <input style="float: right;" class="botonFormularioSubir col-md-4" data-dismiss="modal" type="submit" value="Buscar">
 
-        <a href="alojamientos.html"><div class="botonHome col-md-3">
-         <i class="fas fa-concierge-bell"></i><br>
-          ALOJAMIENTOS
-        </div> </a>
-
-  <div class="espacio col-md-2"></div>
-
-
-         <a href="viajeros.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
-          <i class="fas fa-users"></i><br>
-          VIAJEROS
-        </div> </a>
-
-<div class="espacio col-md-2"></div>
-
-         <a href="excursiones.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
-          <i class="fas fa-bus"></i><br>
-          EXCURSIONES
-        </div> </a>
-<div class="espacio col-md-2"></div>
-
-<div class="contenedorResumenViaje col-md-12">
-  <h2><b>RESUMEN</b></h2>
-<p><b>DÍAS TOTALES: </b>15</p>
-<p><b>FECHA DE SALIDA: </b>05/10/2021</p>
-<p><b>CANTIDAD DE DESTINOS: </b>8</p>
-<p><b>CANTIDAD DE VIAJEROS: </b>2</p>
-<p><b>PRESUPUESTO PROMEDIO REAL / PRESUPESTO ESTIMADO: </b>$ 250.00 / $300.000</p>
+           <input style="float: right;     margin-right: 10px; height: 30px; margin-top: 10px;" class="inputSubir col-md-7" type="text" id="busqueda" name="busqueda" required>
+        
+      </div>
+        </form>
 </div>
-</div>
-  <?php } else { header('Location: miBubbleTravel.php'); } ?> 
+          <div id="accordion">
+      <?php
+
+
+if ( isset( $busqueda ) ){
+
+      $destinos = $conexion->prepare("SELECT * FROM destinos WHERE id_usuario=:idUsuario AND id_viaje=:idViaje AND nombre LIKE CONCAT ('%', :busqueda, '%')");
+      $destinos->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $destinos->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $destinos->bindParam(":busqueda", $busqueda, PDO::PARAM_STR);
+      $destinos->execute(); }else{
+
+      $destinos = $conexion->prepare("SELECT * FROM destinos WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
+      $destinos->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $destinos->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $destinos->execute();
+
+ }
+      while ( $destino = $destinos->fetch() ) {
+
+    ?>
+    <div class="card">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $destino["id"]; ?>">
+          <?php echo $destino["nombre"]; ?>
+        </a>
+        
+        
+         
+         <a class="card-link iconCard"  href="eliminarDestino.php?idD=<?php echo $destino['id']; ?>&idV=<?php echo $idViaje; ?>">
+          <i class="fas fa-trash-alt"></i> ELIMINAR
+        </a>
+
+         <a class="card-link iconCard"  href="editarDestino.php?idD=<?php echo $destino['id']; ?>&idV=<?php echo $idViaje; ?>">
+          <i class="fas fa-pencil-ruler"></i> EDITAR
+        </a>
+        
+      </div>
+      <div id="collapse<?php echo $destino["id"]; ?>" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> <?php echo $destino['fecha_inicio']; ?> | <?php echo $destino['fecha_fin']; ?></span> 
+        </div>
+      </div>
+    </div><br>
+    <?php } ?>
+  </div>
+ </div>  
+ <?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
+
 
     <!--========================================================
                             FOOTER
@@ -158,6 +183,8 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
     <!-- Include all compiled plugins (below), or include individual files as needed -->         
     <script src="js/bootstrap.min.js"></script>
  <script src="js/tm-scripts.js"></script>    
+
+
   <!-- </script> -->
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2021 a las 02:27:36
+-- Tiempo de generación: 10-06-2021 a las 05:30:55
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bubble_travel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `destinos`
+--
+
+CREATE TABLE `destinos` (
+  `id` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `destinos`
+--
+
+INSERT INTO `destinos` (`id`, `id_viaje`, `id_usuario`, `nombre`, `fecha_inicio`, `fecha_fin`) VALUES
+(3, 1, 6, 'Madrid', '2021-06-27', '2021-06-30'),
+(4, 5, 6, 'Buzios', '2021-06-09', '2021-06-17'),
+(5, 5, 6, 'Rio de Janeiro', '2021-06-18', '2021-06-20');
 
 -- --------------------------------------------------------
 
@@ -93,7 +117,7 @@ CREATE TABLE `viaje` (
 INSERT INTO `viaje` (`id`, `id_usuario`, `nombre`, `presupuesto`) VALUES
 (1, 6, 'Europa 2022', 150000),
 (3, 7, 'EUROPA 2023', 250000),
-(5, 6, 'Brasil 2023', 100000),
+(5, 6, 'Brasil 2024', 100000),
 (6, 8, 'Japón 2025', 500000);
 
 -- --------------------------------------------------------
@@ -123,6 +147,12 @@ INSERT INTO `viajeros` (`id`, `id_viaje`, `id_usuario`, `nombre`, `presupuesto`)
 --
 
 --
+-- Indices de la tabla `destinos`
+--
+ALTER TABLE `destinos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `excursiones`
 --
 ALTER TABLE `excursiones`
@@ -149,6 +179,12 @@ ALTER TABLE `viajeros`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `destinos`
+--
+ALTER TABLE `destinos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `excursiones`
