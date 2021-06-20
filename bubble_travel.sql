@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2021 a las 05:30:55
+-- Tiempo de generación: 20-06-2021 a las 08:05:32
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.0
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bubble_travel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `alojamiento`
+--
+
+CREATE TABLE `alojamiento` (
+  `id` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `destino` varchar(20) NOT NULL,
+  `valor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `alojamiento`
+--
+
+INSERT INTO `alojamiento` (`id`, `id_viaje`, `id_usuario`, `nombre`, `fecha_inicio`, `fecha_fin`, `destino`, `valor`) VALUES
+(3, 1, 6, 'Hostel en Paris', '2021-06-19', '2021-06-25', 'Paris', 501);
 
 -- --------------------------------------------------------
 
@@ -72,6 +96,33 @@ INSERT INTO `excursiones` (`id`, `id_viaje`, `id_usuario`, `nombre`, `fecha`, `v
 (5, 3, 7, 'Mediterráneo', '2021-06-26', 800),
 (6, 3, 7, 'Lisboa Fantástica', '2021-06-19', 700),
 (7, 5, 6, 'Maracaná', '2021-06-24', 500);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `transporte`
+--
+
+CREATE TABLE `transporte` (
+  `id` int(11) NOT NULL,
+  `id_viaje` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `lugar_origen` varchar(20) NOT NULL,
+  `lugar_fin` varchar(20) NOT NULL,
+  `medio` varchar(20) NOT NULL,
+  `valor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `transporte`
+--
+
+INSERT INTO `transporte` (`id`, `id_viaje`, `id_usuario`, `nombre`, `fecha_inicio`, `fecha_fin`, `lugar_origen`, `lugar_fin`, `medio`, `valor`) VALUES
+(1, 1, 6, 'Ida', '2021-06-21', '2021-06-22', 'Ezeiza', 'Madrid', 'Avión', 900),
+(2, 1, 6, 'Vuelta', '2021-06-29', '2021-06-30', 'Madrid', 'Ezeiza', 'Avión', 800);
 
 -- --------------------------------------------------------
 
@@ -140,11 +191,18 @@ CREATE TABLE `viajeros` (
 
 INSERT INTO `viajeros` (`id`, `id_viaje`, `id_usuario`, `nombre`, `presupuesto`) VALUES
 (2, 5, 6, 'Gerónimo', 6000),
-(3, 1, 6, 'Alejandra', 900);
+(3, 1, 6, 'Alejandra', 900),
+(4, 1, 6, 'Alejandro', 4333);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `alojamiento`
+--
+ALTER TABLE `alojamiento`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `destinos`
@@ -156,6 +214,12 @@ ALTER TABLE `destinos`
 -- Indices de la tabla `excursiones`
 --
 ALTER TABLE `excursiones`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `transporte`
+--
+ALTER TABLE `transporte`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -181,6 +245,12 @@ ALTER TABLE `viajeros`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `alojamiento`
+--
+ALTER TABLE `alojamiento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `destinos`
 --
 ALTER TABLE `destinos`
@@ -191,6 +261,12 @@ ALTER TABLE `destinos`
 --
 ALTER TABLE `excursiones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `transporte`
+--
+ALTER TABLE `transporte`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -208,7 +284,7 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `viajeros`
 --
 ALTER TABLE `viajeros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,18 +6,6 @@ $idUsuario=$_SESSION['Usuario']['id'];
 
 $idViaje=$_GET["id"];
 
-@$busqueda=$_POST["busqueda"];
-
-$viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
-
-
-    $viaje->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
-
-
-      $viaje->execute(); 
-
-       $viaje = $viaje->fetch()
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +19,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       <title>Bubble Travel</title>
 
     <!-- Bootstrap -->
-       
+   
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -41,14 +29,12 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="icon" type="imagenes/vnd.microsoft.icon" href="imagenes/icono.ico">
-
-     
-
 
   </head>
 
@@ -59,7 +45,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
   =========================================================-->
    <header class="header col-md-12" >  
     <div class="espacio col-md-4"></div>
-   <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
+ <img class="logo col-md-4" src="imagenes/logo-bubbletravel.jpg">
     <div class="espacio col-md-4"></div>
       
     </header>
@@ -81,18 +67,18 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       <li class="nav-item">
         <a class="nav-link" href="home.php">Home </a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item ">
         <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
     </ul>
     <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    ¡HOLA  <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
+    ¡HOLA <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
   </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="miPerfil.php">Ver Perfil</a>
     <hr>
     <a class="dropdown-item" href="cerrarSesion.php">Cerrar Sesión</a>
@@ -106,84 +92,38 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       
 
         <div class="container col-md-12">
-          <h3 class="tituloCard">  <i class="fas fa-users"></i> VIAJEROS DE  <?php echo strtoupper($viaje["nombre"]); ?></h3>
-<div class="col-md-12 panelEstudios">
 
-<a href="agregarViajero.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR VIAJERO</button></a>
-<!--<a href="votacionDestinos.html"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ VOTACIÓN DE DESTINOS</button></a>-->
+          <div class="contenedorFormularioSubir col-md-12">
+          <h3 class="col-md-12"> <i class="fas fa-concierge-bell"></i> AGREGAR ALOJAMIENTO</h3><br>
 
-<a style="float: right; text-align: center; text-decoration: none; height: 30px;" class="botonFormularioSubir col-md-2" href="viajeros.php?id=<?php echo $idViaje; ?>">Mostrar Todos</a>
+          <div class="col-md-12">
 
- <form action="viajeros.php?id=<?php echo $idViaje; ?>" method="POST">
-            <div class="col-md-6" style="float: right;">
-           <input style="float: right;" class="botonFormularioSubir col-md-4" data-dismiss="modal" type="submit" value="Buscar">
+           <form action="alojamientoCreado.php" method="POST">
+            <div class="col-md-12" style="float: left;">
+          <label class="col-md-3" style="float:left; margin-top: 5px;">NOMBRE: </label> <input class="inputSubir col-md-9" type="text" id="nombre" name="nombre" required><br>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-IN: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio" required>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-OUT: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaFin" name="fechaFin" required><br><br><br>
 
-           <input style="float: right;     margin-right: 10px; height: 30px; margin-top: 10px;" class="inputSubir col-md-7" type="text" id="busqueda" name="busqueda" required>
-        
+           <label class="col-md-3" style="float:left; margin-top: 5px;">DESTINO: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="destino" name="destino" placeholder="-" required>
+         
+    <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="valor" name="valor" placeholder="($)" required>
+ <input class="inputSubir col-md-3" type="hidden" id="viaje" name="viaje" value="<?php echo $idViaje; ?>" required><br>
+                    
+</div>
+      
+
+      <div class="col-md-12" style="float: left;"> <br>
+        <input class="botonFormularioSubir" data-dismiss="modal" type="submit" value="CONFIRMAR">
       </div>
         </form>
-</div>
-          <div id="accordion">
-             <?php
 
-
-if ( isset( $busqueda ) ){
-
-
-  $viajeros = $conexion->prepare("SELECT * FROM viajeros WHERE id_usuario=:idUsuario AND id_viaje=:idViaje AND nombre LIKE CONCAT ('%', :busqueda, '%')");
-      $viajeros->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajeros->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
-      $viajeros->bindParam(":busqueda", $busqueda, PDO::PARAM_STR);
-      $viajeros->execute();
-      
-       }else{
-
-      $viajeros = $conexion->prepare("SELECT * FROM viajeros WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
-      $viajeros->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajeros->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
-      $viajeros->execute();
-
- }
-
-      
-
-      while ( $viajero = $viajeros->fetch() ) {
-
-    ?>
-    <div class="card">
-      <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $viajero["id"]; ?>">
-           <?php echo $viajero["nombre"]; ?>
-        </a>
-        
-        
-         
-         <a class="card-link iconCard"  href="eliminarViajero.php?idVi=<?php echo $viajero['id']; ?>&idV=<?php echo $idViaje; ?>">
-          <i class="fas fa-trash-alt"></i> ELIMINAR
-        </a>
-
-         <a class="card-link iconCard"  href="editarViajero.php?idVi=<?php echo $viajero['id']; ?>&idV=<?php echo $idViaje; ?>">
-          <i class="fas fa-pencil-ruler"></i> EDITAR
-        </a>
-
-        <a class="card-link iconCard"  href="votarDestino.html">
-        <i class="fas fa-vote-yea"></i> VOTAR
-        </a>
-
-      </div>
-      <div id="collapse<?php echo $viajero["id"]; ?>" class="collapse" data-parent="#accordion">
-        <div class="card-body">
-   
-          <span class="col-md-12 texto-card-body"><b><i class="far fa-money-bill-alt"></i> PRESUPUESTO / GASTADO HASTA EL MOMENTO:</b>  <?php echo "$ ".$viajero["presupuesto"]; ?> / $ 5.000</span> 
         </div>
-      </div>
-    </div><br>
-    <?php } ?>
-  </div>
- </div>  
- <?php } else { header('Location: miBubbleTravel.php'); } ?> 
-</main>
 
+        </div> 
+
+        </div>  
+  <?php } else { header('Location: miBubbleTravel.php'); } ?> 
+</main>
 
     <!--========================================================
                             FOOTER
@@ -193,10 +133,26 @@ if ( isset( $busqueda ) ){
     <!-- Include all compiled plugins (below), or include individual files as needed -->         
     <script src="js/bootstrap.min.js"></script>
  <script src="js/tm-scripts.js"></script>    
-
-
   <!-- </script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+   
 
+    <script type="text/javascript">
+      $("#file-1").fileinput({
+    theme: 'fa',
+    uploadUrl: '#',
+    allowedFileExtensions: ['jpg', 'png', 'pdf','doc'],
+    overwriteInitial: false,
+    maxFileSize:2000,
+    maxFilesNum: 10,
+    slugCallback: function (filename) {
+        return filename.replace('(', '_').replace(']', '_');
+    }
+});
+    </script>
 
   </body>
 </html>

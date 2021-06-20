@@ -92,7 +92,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     ¡HOLA  <?php echo strtoupper($_SESSION["Usuario"]["nick"]); ?>! &nbsp; &nbsp; &nbsp; <i class="fas fa-user"></i>
   </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <a class="dropdown-item" href="miPerfil.php">Ver Perfil</a>
     <hr>
     <a class="dropdown-item" href="cerrarSesion.php">Cerrar Sesión</a>
@@ -106,15 +106,14 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
       
 
         <div class="container col-md-12">
-          <h3 class="tituloCard">  <i class="fas fa-users"></i> VIAJEROS DE  <?php echo strtoupper($viaje["nombre"]); ?></h3>
+          <h3 class="tituloCard">  <i class="fas fa-concierge-bell"></i> ALOJAMIENTOS DE <?php echo strtoupper($viaje["nombre"]); ?></h3>
 <div class="col-md-12 panelEstudios">
 
-<a href="agregarViajero.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR VIAJERO</button></a>
-<!--<a href="votacionDestinos.html"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ VOTACIÓN DE DESTINOS</button></a>-->
+<a href="agregarAlojamiento.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR ALOJAMIENTO</button></a>
 
-<a style="float: right; text-align: center; text-decoration: none; height: 30px;" class="botonFormularioSubir col-md-2" href="viajeros.php?id=<?php echo $idViaje; ?>">Mostrar Todos</a>
+<a style="float: right; text-align: center; text-decoration: none; height: 30px;" class="botonFormularioSubir col-md-2" href="alojamientos.php?id=<?php echo $idViaje; ?>">Mostrar Todos</a>
 
- <form action="viajeros.php?id=<?php echo $idViaje; ?>" method="POST">
+ <form action="alojamientos.php?id=<?php echo $idViaje; ?>" method="POST">
             <div class="col-md-6" style="float: right;">
            <input style="float: right;" class="botonFormularioSubir col-md-4" data-dismiss="modal" type="submit" value="Buscar">
 
@@ -124,64 +123,62 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
         </form>
 </div>
           <div id="accordion">
-             <?php
+<?php
 
 
 if ( isset( $busqueda ) ){
 
 
-  $viajeros = $conexion->prepare("SELECT * FROM viajeros WHERE id_usuario=:idUsuario AND id_viaje=:idViaje AND nombre LIKE CONCAT ('%', :busqueda, '%')");
-      $viajeros->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajeros->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
-      $viajeros->bindParam(":busqueda", $busqueda, PDO::PARAM_STR);
-      $viajeros->execute();
+  $alojamientos = $conexion->prepare("SELECT id, id_viaje, id_usuario, nombre, fecha_inicio, fecha_fin, destino, valor, TIMESTAMPDIFF(DAY, fecha_inicio,fecha_fin) AS dias FROM alojamiento WHERE id_usuario=:idUsuario AND id_viaje=:idViaje AND nombre LIKE CONCAT ('%', :busqueda, '%')");
+      $alojamientos->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $alojamientos->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $alojamientos->bindParam(":busqueda", $busqueda, PDO::PARAM_STR);
+      $alojamientos->execute();
       
        }else{
 
-      $viajeros = $conexion->prepare("SELECT * FROM viajeros WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
-      $viajeros->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
-      $viajeros->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
-      $viajeros->execute();
+      $alojamientos = $conexion->prepare("SELECT id, id_viaje, id_usuario, nombre, fecha_inicio, fecha_fin, destino, valor, TIMESTAMPDIFF(DAY, fecha_inicio,fecha_fin) AS dias FROM alojamiento WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
+      $alojamientos->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $alojamientos->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $alojamientos->execute();
 
  }
 
       
 
-      while ( $viajero = $viajeros->fetch() ) {
+      while ( $alojamiento = $alojamientos->fetch() ) {
 
     ?>
     <div class="card">
       <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $viajero["id"]; ?>">
-           <?php echo $viajero["nombre"]; ?>
+        <a class="card-link" data-toggle="collapse" href="#collapse<?php echo $alojamiento["id"]; ?>">
+          <?php echo $alojamiento["nombre"]; ?>
         </a>
         
         
          
-         <a class="card-link iconCard"  href="eliminarViajero.php?idVi=<?php echo $viajero['id']; ?>&idV=<?php echo $idViaje; ?>">
-          <i class="fas fa-trash-alt"></i> ELIMINAR
+         <a class="card-link iconCard"  href="eliminarAlojamiento.php?idA=<?php echo $alojamiento['id']; ?>&idV=<?php echo $idViaje; ?>">
+          <i class="fas fa-trash-alt"></i>
         </a>
 
-         <a class="card-link iconCard"  href="editarViajero.php?idVi=<?php echo $viajero['id']; ?>&idV=<?php echo $idViaje; ?>">
-          <i class="fas fa-pencil-ruler"></i> EDITAR
+         <a class="card-link iconCard"  href="editarAlojamiento.php?idA=<?php echo $alojamiento['id']; ?>&idV=<?php echo $idViaje; ?>">
+          <i class="fas fa-pencil-ruler"></i>
         </a>
-
-        <a class="card-link iconCard"  href="votarDestino.html">
-        <i class="fas fa-vote-yea"></i> VOTAR
-        </a>
-
+        
       </div>
-      <div id="collapse<?php echo $viajero["id"]; ?>" class="collapse" data-parent="#accordion">
+      <div id="collapse<?php echo $alojamiento["id"]; ?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-   
-          <span class="col-md-12 texto-card-body"><b><i class="far fa-money-bill-alt"></i> PRESUPUESTO / GASTADO HASTA EL MOMENTO:</b>  <?php echo "$ ".$viajero["presupuesto"]; ?> / $ 5.000</span> 
+          <span class="col-md-3 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHAS:</b> <?php echo $alojamiento["fecha_inicio"]; ?> | <?php echo $alojamiento["fecha_fin"]; ?></span>
+          <span class="col-md-3 texto-card-body"><b><i class="fas fa-moon"></i> NOCHES:</b> <?php echo $alojamiento["dias"]; ?></span>  
+          <span class="col-md-3 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> DESTINO:</b> <?php echo $alojamiento["destino"]; ?></span>  
+          <span class="col-md-3 texto-card-body"><b><i class="far fa-money-bill-alt"></i> VALOR:</b> $ <?php echo $alojamiento["valor"]; ?></span> 
         </div>
       </div>
     </div><br>
     <?php } ?>
   </div>
  </div>  
- <?php } else { header('Location: miBubbleTravel.php'); } ?> 
+<?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
 
 

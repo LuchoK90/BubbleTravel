@@ -6,6 +6,8 @@ $idUsuario=$_SESSION['Usuario']['id'];
 
 $idViaje=$_GET["id"];
 
+@$busqueda=$_POST["busqueda"];
+
 $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
 
@@ -108,13 +110,38 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 <div class="col-md-12 panelEstudios">
 
 <a href="agregarExcursion.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-3 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">+ AGREGAR EXCURSIÓN</button></a>
+
+<a style="float: right; text-align: center; text-decoration: none; height: 30px;" class="botonFormularioSubir col-md-2" href="excursiones.php?id=<?php echo $idViaje; ?>">Mostrar Todos</a>
+
+ <form action="excursiones.php?id=<?php echo $idViaje; ?>" method="POST">
+            <div class="col-md-6" style="float: right;">
+           <input style="float: right;" class="botonFormularioSubir col-md-4" data-dismiss="modal" type="submit" value="Buscar">
+
+           <input style="float: right;     margin-right: 10px; height: 30px; margin-top: 10px;" class="inputSubir col-md-7" type="text" id="busqueda" name="busqueda" required>
+        
+      </div>
+        </form>
+
 </div>
           <div id="accordion">
     <?php
+
+if ( isset( $busqueda ) ){
+
+      $excursiones = $conexion->prepare("SELECT * FROM excursiones WHERE id_usuario=:idUsuario AND id_viaje=:idViaje AND nombre LIKE CONCAT ('%', :busqueda, '%')");
+      $excursiones->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
+      $excursiones->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+      $excursiones->bindParam(":busqueda", $busqueda, PDO::PARAM_STR);
+      $excursiones->execute(); }else{
+
       $excursiones = $conexion->prepare("SELECT * FROM excursiones WHERE id_usuario=:idUsuario AND id_viaje=:idViaje");
       $excursiones->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
       $excursiones->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
       $excursiones->execute();
+
+ }
+
+    
 
       while ( $excursion = $excursiones->fetch() ) {
 

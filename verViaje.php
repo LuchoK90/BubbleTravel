@@ -103,7 +103,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
         <div class="container col-md-12">
  <h1 class="col-md-12" style="text-align: center;"><?php echo strtoupper($viaje["nombre"]); ?></h1><br>
-       <a href="transporte.html"> <div class="botonHome col-md-3">
+        <a href="transporte.php?id=<?php echo $idViaje; ?>"> <div class="botonHome col-md-3">
          <i class="fas fa-plane"></i><br>
           TRANSPORTE
         </div> </a>
@@ -117,7 +117,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
 <div class="espacio col-md-1"></div>
 
-        <a href="alojamientos.html"><div class="botonHome col-md-3">
+        <a href="alojamientos.php?id=<?php echo $idViaje; ?>"><div class="botonHome col-md-3">
          <i class="fas fa-concierge-bell"></i><br>
           ALOJAMIENTOS
         </div> </a>
@@ -144,7 +144,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 <p><b>FECHA DE SALIDA: </b>05/10/2021</p>
 <p><b>CANTIDAD DE DESTINOS: </b>8</p>
 <p><b>CANTIDAD DE VIAJEROS: </b>2</p>
-<p><b>PRESUPUESTO PROMEDIO REAL / PRESUPESTO ESTIMADO: </b>$ 250.00 / $300.000</p>
+<p><b>PRESUPUESTO PROMEDIO REAL / PRESUPUESTO ESTIMADO: </b>$ 250.00 / $300.000</p>
 </div>
 </div>
   <?php } else { header('Location: miBubbleTravel.php'); } ?> 
