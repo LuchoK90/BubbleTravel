@@ -7,6 +7,7 @@ $fechaInicio=$_POST["fechaInicio"];
 $fechaFin=$_POST["fechaFin"];
 
 $idDestino=$_POST["destino"];
+$idViaje=$_POST["viaje"];
 
 $id=$_SESSION['Usuario']['id'];
 
@@ -20,7 +21,7 @@ $usuario->bindParam(":idDestino", $idDestino, PDO::PARAM_INT);
 
       $usuario->execute(); 
 
-header("location: editarDestino.php?idD=$idDestino");} else {
+header("location: destinos.php?id=$idViaje");} else {
 header("location: miBubbleTravel.php");
 }
 

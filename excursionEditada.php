@@ -6,6 +6,7 @@ $nombre=$_POST["nombre"];
 $fecha=$_POST["fechaInicio"];
 $valor=$_POST["valor"];
 $idExcursion=$_POST["excursion"];
+$idViaje=$_POST["viaje"];
 
 $id=$_SESSION['Usuario']['id'];
 
@@ -19,7 +20,7 @@ $usuario->bindParam(":idExcursion", $idExcursion, PDO::PARAM_INT);
 
       $usuario->execute(); 
 
-header("location: editarExcursion.php?idE=$idExcursion");} else {
+header("location: excursiones.php?id=$idViaje");} else {
 header("location: miBubbleTravel.php");
 }
 

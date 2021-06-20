@@ -5,7 +5,7 @@ include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
 
 $idTransporte=$_GET["idT"];
-
+$idViaje=$_GET["idV"];
 
 $transporte = $conexion->prepare("SELECT * FROM transporte WHERE id=:idTransporte");
 
@@ -127,7 +127,7 @@ $transporte = $conexion->prepare("SELECT * FROM transporte WHERE id=:idTransport
 </select><br>
     <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label><input class="inputSubir col-md-9" style="float:left;" type="text" id="valor" name="valor" value="<?php echo $transporte["valor"]; ?>" required>
  <input class="inputSubir col-md-3" type="hidden" id="transporte" name="transporte" value="<?php echo $idTransporte; ?>" required>
-                    
+<input class="inputSubir col-md-3" type="hidden" id="viaje" name="viaje" value="<?php echo $idViaje; ?>" required>                    
 </div>
       
 

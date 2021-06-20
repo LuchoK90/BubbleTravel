@@ -18,7 +18,7 @@ $usuario = $conexion->prepare("UPDATE viaje SET nombre = :nombre, presupuesto = 
 
       $usuario->execute(); 
 
-header("location: editarViaje.php?id=$idViaje");} else {
+header("location: misViajes.php?id=$idViaje");} else {
 header("location: miBubbleTravel.php");
 }
 

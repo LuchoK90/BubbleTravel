@@ -5,6 +5,7 @@ include("conexion.php");
 $nombre=$_POST["nombre"];
 $presupuesto=$_POST["presupuesto"];
 $idViajero=$_POST["viajero"];
+$idViaje=$_POST["viaje"];
 
 $id=$_SESSION['Usuario']['id'];
 
@@ -18,7 +19,7 @@ $usuario->bindParam(":idViajero", $idViajero, PDO::PARAM_INT);
 
       $usuario->execute(); 
 
-header("location: editarViajero.php?idVi=$idViajero");} else {
+header("location: viajeros.php?id=$idViaje");} else {
 header("location: miBubbleTravel.php");
 }
 

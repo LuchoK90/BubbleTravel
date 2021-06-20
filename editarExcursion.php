@@ -5,7 +5,7 @@ include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
 
 $idExcursion=$_GET["idE"];
-
+$idViaje=$_GET["idV"];
 
 $excursion = $conexion->prepare("SELECT * FROM excursiones WHERE id=:idExcursion");
 
@@ -114,7 +114,8 @@ $excursion = $conexion->prepare("SELECT * FROM excursiones WHERE id=:idExcursion
           <label class="col-md-3" style="float:left; margin-top: 5px;">NOMBRE: </label> <input class="inputSubir col-md-9" type="text" id="nombre" name="nombre" value="<?php echo $excursion["nombre"]; ?>" required><br>
            <label class="col-md-3" style="float:left; margin-top: 5px;">FECHA </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio" value="<?php echo $excursion["fecha"]; ?>" required>
          <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label> <input class="inputSubir col-md-3" type="text" id="valor" name="valor" placeholder="($)" value="<?php echo $excursion["valor"]; ?>" required><br>
-  <input class="inputSubir col-md-3" type="hidden" id="excursion" name="excursion" value="<?php echo $idExcursion; ?>" required><br>                  
+  <input class="inputSubir col-md-3" type="hidden" id="excursion" name="excursion" value="<?php echo $idExcursion; ?>" required><br>    
+   <input class="inputSubir col-md-3" type="hidden" id="viaje" name="viaje" value="<?php echo $idViaje; ?>" required>              
 </div>
       
 

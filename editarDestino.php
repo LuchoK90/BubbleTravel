@@ -5,7 +5,7 @@ include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
 
 $idDestino=$_GET["idD"];
-
+$idViaje=$_GET["idV"];
 
 $destino = $conexion->prepare("SELECT * FROM destinos WHERE id=:idDestino");
 
@@ -115,7 +115,7 @@ $destino = $conexion->prepare("SELECT * FROM destinos WHERE id=:idDestino");
            <label class="col-md-3" style="float:left; margin-top: 5px;">FECHA INICIO: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio"  value="<?php echo $destino["fecha_inicio"]; ?>" required>
            <label class="col-md-3" style="float:left; margin-top: 5px;">FECHA FIN: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaFin" name="fechaFin"  value="<?php echo $destino["fecha_fin"]; ?>" required><br><br><br>
   <input class="inputSubir col-md-3" type="hidden" id="destino" name="destino" value="<?php echo $idDestino; ?>" required>
-                    
+          <input class="inputSubir col-md-3" type="hidden" id="viaje" name="viaje" value="<?php echo $idViaje; ?>" required>          
 </div>
       
 

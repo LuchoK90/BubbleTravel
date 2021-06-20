@@ -11,6 +11,7 @@ $lugarDestino=$_POST["lugarDestino"];
 $medio=$_POST["medio"];
 $valor=$_POST["valor"];
 $idTransporte=$_POST["transporte"];
+$idViaje=$_POST["viaje"];
 
 $id=$_SESSION['Usuario']['id'];
 
@@ -28,7 +29,7 @@ $usuario->bindParam(":idTransporte", $idTransporte, PDO::PARAM_INT);
 
       $usuario->execute(); 
 
-header("location: editarTransporte.php?idT=$idTransporte");} else {
+header("location: transporte.php?id=$idViaje");} else {
 header("location: miBubbleTravel.php");
 }
 

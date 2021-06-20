@@ -5,7 +5,7 @@ include("conexion.php");
 $idUsuario=$_SESSION['Usuario']['id']; 
 
 $idViajero=$_GET["idVi"];
-
+$idViaje=$_GET["idV"];
 
 $viajero = $conexion->prepare("SELECT * FROM viajeros WHERE id=:idViajero");
 
