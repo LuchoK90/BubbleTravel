@@ -164,7 +164,7 @@ if ( isset( $busqueda ) ){
       </div>
       <div id="collapse<?php echo $destino["id"]; ?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> <?php echo $destino['fecha_inicio']; ?> | <?php echo $destino['fecha_fin']; ?></span> 
+          <span class="col-md-12 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> <?php echo $destino['fecha_inicio']; ?> | <?php echo $destino['fecha_fin']; ?></span> 
         </div>
       </div>
     </div><br>

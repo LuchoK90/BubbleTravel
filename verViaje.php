@@ -14,7 +14,62 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
       $viaje->execute(); 
 
-       $viaje = $viaje->fetch()
+       $viaje = $viaje->fetch();
+
+$dias = $conexion->prepare("SELECT min(fecha_inicio) AS salida, TIMESTAMPDIFF(DAY, min(fecha_inicio),max(fecha_fin)) AS dias, SUM(valor) AS valorTransporte FROM transporte WHERE id_viaje=:idViaje");
+
+
+    $dias->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $dias->execute(); 
+
+       $dias = $dias->fetch();
+
+$destinos = $conexion->prepare("SELECT count(*) AS cantidad FROM destinos WHERE id_viaje=:idViaje");
+
+
+    $destinos->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $destinos->execute(); 
+
+       $destinos = $destinos->fetch();
+
+$viajeros = $conexion->prepare("SELECT count(*) AS cantidad, SUM(presupuesto) AS presupuesto_total FROM viajeros WHERE id_viaje=:idViaje");
+
+
+    $viajeros->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $viajeros->execute(); 
+
+       $viajeros = $viajeros->fetch();
+
+$presupuestoPromedio=$viajeros["presupuesto_total"]/$viajeros["cantidad"];
+
+
+$presupuestoAlojamiento = $conexion->prepare("SELECT SUM(valor) AS valorAlojamiento FROM alojamiento WHERE id_viaje=:idViaje");
+
+
+    $presupuestoAlojamiento->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $presupuestoAlojamiento->execute(); 
+
+       $presupuestoAlojamiento = $presupuestoAlojamiento->fetch();
+
+$presupuestoExcursiones = $conexion->prepare("SELECT SUM(valor) AS valorExcursion FROM excursiones WHERE id_viaje=:idViaje");
+
+
+    $presupuestoExcursiones->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
+
+
+      $presupuestoExcursiones->execute(); 
+
+       $presupuestoExcursiones = $presupuestoExcursiones->fetch();
+
+$presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones["valorExcursion"]+$presupuestoAlojamiento["valorAlojamiento"])/$viajeros["cantidad"];
 
 ?>
 <!DOCTYPE html>
@@ -140,11 +195,11 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
 <div class="contenedorResumenViaje col-md-12">
   <h2><b>RESUMEN</b></h2>
-<p><b>DÍAS TOTALES: </b>15</p>
-<p><b>FECHA DE SALIDA: </b>05/10/2021</p>
-<p><b>CANTIDAD DE DESTINOS: </b>8</p>
-<p><b>CANTIDAD DE VIAJEROS: </b>2</p>
-<p><b>PRESUPUESTO PROMEDIO REAL / PRESUPUESTO ESTIMADO: </b>$ 250.00 / $300.000</p>
+<p><b>DÍAS TOTALES: </b><?php echo $dias["dias"]; ?></p>
+<p><b>FECHA DE SALIDA: </b><?php echo $dias["salida"]; ?></p>
+<p><b>CANTIDAD DE DESTINOS: </b><?php echo $destinos["cantidad"]; ?></p>
+<p><b>CANTIDAD DE VIAJEROS: </b><?php echo $viajeros["cantidad"]; ?></p>
+<p><b>PRESUPUESTO PROMEDIO UTILIZADO / PRESUPUESTO PROMEDIO DISPONIBLE: </b>$ <?php echo $presupuestoPromedioUtilizado ?> / $ <?php echo $presupuestoPromedio; ?></p>
 </div>
 </div>
   <?php } else { header('Location: miBubbleTravel.php'); } ?> 
