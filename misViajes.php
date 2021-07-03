@@ -27,7 +27,7 @@ $idUsuario=$_SESSION['Usuario']['id'];
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
@@ -65,15 +65,13 @@ $idUsuario=$_SESSION['Usuario']['id'];
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="home.php">Home </a>
+      <li class="nav-item active">
+        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
       <li class="nav-item ">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
-      </li>
+      
     </ul>
     <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -137,7 +135,7 @@ if ( isset( $busqueda ) ){
         </a>
 
          <a class="card-link iconCard"  href="editarViaje.php?id=<?php echo $viaje['id']; ?>">
-          <i class="fas fa-pencil-ruler"></i> EDITAR
+          <i class="fas fa-pencil-ruler"></i> VER / EDITAR
         </a>
         
         <a class="card-link iconCard"  href="verViaje.php?id=<?php echo $viaje['id']; ?>">

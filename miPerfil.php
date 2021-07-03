@@ -63,15 +63,13 @@ include("conexion.php");
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="home.php">Home </a>
+      <li class="nav-item ">
+        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
-      </li>
+      
     </ul>
     <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -3,7 +3,7 @@ session_start();
 if ( isset( $_SESSION["Usuario"] ) ) {
 include("conexion.php"); 
 $nombre=$_POST["nombre"];
-$presupuesto=$_POST["presupuesto"];
+$presupuesto=0;
 $idUsuario=$_SESSION['Usuario']['id'];
 
 $usuario = $conexion->prepare("INSERT INTO viaje (id_usuario, nombre, presupuesto) VALUES (:idUsuario, :nombre, :presupuesto)");

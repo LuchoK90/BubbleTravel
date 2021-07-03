@@ -16,7 +16,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
        $viaje = $viaje->fetch();
 
-$dias = $conexion->prepare("SELECT min(fecha_inicio) AS salida, TIMESTAMPDIFF(DAY, min(fecha_inicio),max(fecha_fin)) AS dias, SUM(valor) AS valorTransporte FROM transporte WHERE id_viaje=:idViaje");
+$dias = $conexion->prepare("SELECT min(fecha_inicio) AS salida, max(fecha_fin) AS llegada, TIMESTAMPDIFF(DAY, min(fecha_inicio),max(fecha_fin)) AS dias, SUM(valor) AS valorTransporte FROM transporte WHERE id_viaje=:idViaje");
 
 
     $dias->bindParam(":idViaje", $idViaje, PDO::PARAM_INT);
@@ -46,7 +46,7 @@ $viajeros = $conexion->prepare("SELECT count(*) AS cantidad, SUM(presupuesto) AS
 
        $viajeros = $viajeros->fetch();
 
-$presupuestoPromedio=$viajeros["presupuesto_total"]/$viajeros["cantidad"];
+@$presupuestoPromedio=$viajeros["presupuesto_total"]/$viajeros["cantidad"];
 
 
 $presupuestoAlojamiento = $conexion->prepare("SELECT SUM(valor) AS valorAlojamiento FROM alojamiento WHERE id_viaje=:idViaje");
@@ -69,7 +69,7 @@ $presupuestoExcursiones = $conexion->prepare("SELECT SUM(valor) AS valorExcursio
 
        $presupuestoExcursiones = $presupuestoExcursiones->fetch();
 
-$presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones["valorExcursion"]+$presupuestoAlojamiento["valorAlojamiento"])/$viajeros["cantidad"];
+@$presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones["valorExcursion"]+$presupuestoAlojamiento["valorAlojamiento"])/$viajeros["cantidad"];
 
 ?>
 <!DOCTYPE html>
@@ -95,7 +95,7 @@ $presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones[
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
@@ -130,14 +130,12 @@ $presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones[
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" href="home.php">Home </a>
+        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
-      </li>
+      
     </ul>
     <div class="dropdown">
  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,13 +191,24 @@ $presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones[
         </div> </a>
 <div class="espacio col-md-2"></div>
 
+<?php 
+
+        $fecha_inicio = strtotime($dias["salida"]);
+        $fecha_inicio = date("d-m-Y", $fecha_inicio);
+
+        $fecha_fin = strtotime($dias["llegada"]);
+        $fecha_fin = date("d-m-Y", $fecha_fin);
+
+?>
+
 <div class="contenedorResumenViaje col-md-12">
   <h2><b>RESUMEN</b></h2>
 <p><b>DÍAS TOTALES: </b><?php echo $dias["dias"]; ?></p>
-<p><b>FECHA DE SALIDA: </b><?php echo $dias["salida"]; ?></p>
+<p><b>FECHA DE SALIDA: </b><?php echo $fecha_inicio; ?></p>
+<p><b>FECHA DE LLEGADA: </b><?php echo $fecha_fin; ?></p>
 <p><b>CANTIDAD DE DESTINOS: </b><?php echo $destinos["cantidad"]; ?></p>
 <p><b>CANTIDAD DE VIAJEROS: </b><?php echo $viajeros["cantidad"]; ?></p>
-<p><b>PRESUPUESTO PROMEDIO UTILIZADO / PRESUPUESTO PROMEDIO DISPONIBLE: </b>$ <?php echo $presupuestoPromedioUtilizado ?> / $ <?php echo $presupuestoPromedio; ?></p>
+<p <?php if ($presupuestoPromedioUtilizado > $presupuestoPromedio){ ?> style="color:red;" <?php } ?> ><b>PROMEDIO UTILIZADO / PROMEDIO DISPONIBLE: </b>$ <?php echo $presupuestoPromedioUtilizado; ?> / $ <?php echo $presupuestoPromedio; ?></p>
 </div>
 </div>
   <?php } else { header('Location: miBubbleTravel.php'); } ?> 

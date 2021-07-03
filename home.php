@@ -2,6 +2,7 @@
 session_start();
 if ( isset( $_SESSION["Usuario"] ) ) {
 include("conexion.php"); 
+header('Location: misViajes.php');
 ?>
 
 <!DOCTYPE html>

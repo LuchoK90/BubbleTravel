@@ -40,7 +40,7 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
@@ -78,15 +78,13 @@ $viaje = $conexion->prepare("SELECT nombre FROM viaje WHERE id=:idViaje");
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="home.php">Home </a>
+     <li class="nav-item">
+        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
       </li>
       <li class="nav-item ">
         <a class="nav-link" href="crearViaje.php">Crear un Viaje</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="misViajes.php">Mis Viajes</a>
-      </li>
+      
     </ul>
     <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,6 +146,12 @@ if ( isset( $busqueda ) ){
 
       while ( $transporte = $transportes->fetch() ) {
 
+        $fecha_inicio = strtotime($transporte["fecha_inicio"]);
+        $fecha_inicio = date("d-m-Y", $fecha_inicio);
+
+        $fecha_fin = strtotime($transporte["fecha_fin"]);
+        $fecha_fin = date("d-m-Y", $fecha_fin);
+
     ?>
     <div class="card">
       <div class="card-header">
@@ -163,19 +167,21 @@ if ( isset( $busqueda ) ){
         </a>
 
          <a class="card-link iconCard"  href="editarTransporte.php?idT=<?php echo $transporte['id']; ?>&idV=<?php echo $idViaje; ?>">
-          <i class="fas fa-pencil-ruler"></i> EDITAR
+          <i class="fas fa-pencil-ruler"></i> VER / EDITAR
         </a>
         
       </div>
       <div id="collapse<?php echo $transporte["id"]; ?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> <?php echo $transporte['fecha_inicio']; ?> | <?php echo $transporte['fecha_fin']; ?></span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> MEDIO:</b> <?php echo $transporte['medio']; ?></span> <span class="col-md-4 texto-card-body"><b><i class="far fa-money-bill-alt"></i> PRECIO:</b> $ <?php echo $transporte['valor']; ?></span>
+          <span class="col-md-4 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHA:</b> <?php echo $fecha_inicio; ?> | <?php echo $fecha_fin; ?></span>  <span class="col-md-4 texto-card-body"><b><i class="fas fa-tasks"></i> MEDIO:</b> <?php echo $transporte['medio']; ?></span> <span class="col-md-4 texto-card-body"><b><i class="far fa-money-bill-alt"></i> PRECIO:</b> $ <?php echo $transporte['valor']; ?></span>
         </div>
       </div>
     </div><br>
     <?php } ?>
   </div>
+   <a href="verViaje.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-12 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">VOLVER AL PANEL DEL VIAJE</button></a>
  </div>  
+
 <?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
 

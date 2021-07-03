@@ -3,7 +3,7 @@ session_start();
 if ( isset( $_SESSION["Usuario"] ) ) {
 include("conexion.php"); 
 $nombre=$_POST["nombre"];
-$presupuesto=$_POST["presupuesto"];
+$presupuesto=0;
 $idViaje=$_POST["id"];
 
 $id=$_SESSION['Usuario']['id'];
