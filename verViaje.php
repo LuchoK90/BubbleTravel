@@ -208,7 +208,7 @@ $presupuestoExcursiones = $conexion->prepare("SELECT SUM(valor) AS valorExcursio
 <p><b>FECHA DE LLEGADA: </b><?php echo $fecha_fin; ?></p>
 <p><b>CANTIDAD DE DESTINOS: </b><?php echo $destinos["cantidad"]; ?></p>
 <p><b>CANTIDAD DE VIAJEROS: </b><?php echo $viajeros["cantidad"]; ?></p>
-<p <?php if ($presupuestoPromedioUtilizado > $presupuestoPromedio){ ?> style="color:red;" <?php } ?> ><b>PROMEDIO UTILIZADO / PROMEDIO DISPONIBLE: </b>$ <?php echo $presupuestoPromedioUtilizado; ?> / $ <?php echo $presupuestoPromedio; ?></p>
+<p <?php if ($presupuestoPromedioUtilizado > $presupuestoPromedio){ ?> style="color:red;" <?php } ?> ><b>PROMEDIO UTILIZADO / PROMEDIO DISPONIBLE: </b>$ <?php echo number_format($presupuestoPromedioUtilizado, 2, '.', '');  ?> / $ <?php echo number_format($presupuestoPromedio, 2, '.', '');  ?></p>
 </div>
 </div>
   <?php } else { header('Location: miBubbleTravel.php'); } ?> 

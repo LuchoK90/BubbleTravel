@@ -219,15 +219,13 @@ if ( isset( $busqueda ) ){
           <i class="fas fa-pencil-ruler"></i> VER / EDITAR
         </a>
 
-        <a class="card-link iconCard"  href="votarDestino.html">
-        <i class="fas fa-vote-yea"></i> VOTAR
-        </a>
+  
 
       </div>
       <div id="collapse<?php echo $viajero["id"]; ?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
    
-          <span class="col-md-12 texto-card-body"><b><i class="far fa-money-bill-alt"></i> PRESUPUESTO / GASTADO HASTA EL MOMENTO:</b>  <?php echo "$ ".$viajero["presupuesto"]; ?> / <?php echo "$ ".$presupuestoPromedioUtilizado; ?>    </span> 
+          <span class="col-md-12 texto-card-body" <?php if ($presupuestoPromedioUtilizado > $viajero["presupuesto"]){ ?> style="color:red;" <?php } ?>><b><i class="far fa-money-bill-alt"></i> PRESUPUESTO / GASTADO HASTA EL MOMENTO:</b>  <?php echo "$ ".$viajero["presupuesto"]; ?> / <?php echo "$ ".number_format($presupuestoPromedioUtilizado, 2, '.', ''); ?>    </span> 
         </div>
       </div>
     </div><br>

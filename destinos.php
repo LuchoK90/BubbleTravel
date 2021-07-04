@@ -174,7 +174,9 @@ if ( isset( $busqueda ) ){
     </div><br>
     <?php } ?>
   </div>
-  <a href="verViaje.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-12 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">VOLVER AL PANEL DEL VIAJE</button></a>
+  <a href="votarDestino.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-5 btn btn-secondary botonSubirEstudio" ><i class="fas fa-vote-yea"></i> VOTAR</button></a><div style="float:left; height: 20px;" class="col-md-2"></div>
+  <a href="votacionDestinos.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-5 btn btn-secondary botonSubirEstudio"><i class="fas fa-list-ol"></i> VER RESULTADOS</button></a>
+  <a href="verViaje.php?id=<?php echo $idViaje; ?>"><button type="button" class="col-md-12 btn btn-secondary botonSubirEstudio" style="margin-right: 10px!important;">VOLVER AL PANEL DEL VIAJE</button></a> 
  </div>  
  <?php } else { header('Location: miBubbleTravel.php'); } ?> 
 </main>
