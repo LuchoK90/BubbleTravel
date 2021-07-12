@@ -113,7 +113,7 @@ $alojamiento = $conexion->prepare("SELECT * FROM alojamiento WHERE id=:idAlojami
            <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-IN: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio"  value="<?php echo $alojamiento["fecha_inicio"]; ?>" required>
            <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-OUT: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaFin" name="fechaFin"  value="<?php echo $alojamiento["fecha_fin"]; ?>" required><br><br><br>
 
-           <label class="col-md-3" style="float:left; margin-top: 5px;">DESTINO: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="destino" name="destino" value="<?php echo $alojamiento["destino"]; ?>" required>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">DIRECCIÓN: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="destino" name="destino" value="<?php echo $alojamiento["destino"]; ?>" required>
          
     <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="valor" name="valor" value="<?php echo $alojamiento["valor"]; ?>" required>
   <input class="inputSubir col-md-3" type="hidden" id="alojamiento" name="alojamiento" value="<?php echo $idAlojamiento; ?>" required>

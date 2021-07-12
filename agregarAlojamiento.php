@@ -102,7 +102,7 @@ $idViaje=$_GET["id"];
            <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-IN: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaInicio" name="fechaInicio" required>
            <label class="col-md-3" style="float:left; margin-top: 5px;">CHECK-OUT: </label><input class="inputSubir col-md-3" style="float:left;" type="date" id="fechaFin" name="fechaFin" required><br><br><br>
 
-           <label class="col-md-3" style="float:left; margin-top: 5px;">DESTINO: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="destino" name="destino" placeholder="-" required>
+           <label class="col-md-3" style="float:left; margin-top: 5px;">DIRECCIÓN: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="destino" name="destino" placeholder="-" required>
          
     <label class="col-md-3" style="float:left; margin-top: 5px;">VALOR: </label><input class="inputSubir col-md-3" style="float:left;" type="text" id="valor" name="valor" placeholder="($)" required>
  <input class="inputSubir col-md-3" type="hidden" id="viaje" name="viaje" value="<?php echo $idViaje; ?>" required><br>

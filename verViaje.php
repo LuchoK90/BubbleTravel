@@ -46,7 +46,13 @@ $viajeros = $conexion->prepare("SELECT count(*) AS cantidad, SUM(presupuesto) AS
 
        $viajeros = $viajeros->fetch();
 
-@$presupuestoPromedio=$viajeros["presupuesto_total"]/$viajeros["cantidad"];
+if($viajeros["cantidad"]!=0){
+
+@$presupuestoPromedio=$viajeros["presupuesto_total"]/$viajeros["cantidad"]; } else {
+
+$presupuestoPromedio=0;
+
+}
 
 
 $presupuestoAlojamiento = $conexion->prepare("SELECT SUM(valor) AS valorAlojamiento FROM alojamiento WHERE id_viaje=:idViaje");
@@ -69,7 +75,13 @@ $presupuestoExcursiones = $conexion->prepare("SELECT SUM(valor) AS valorExcursio
 
        $presupuestoExcursiones = $presupuestoExcursiones->fetch();
 
-@$presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones["valorExcursion"]+$presupuestoAlojamiento["valorAlojamiento"])/$viajeros["cantidad"];
+       if($viajeros["cantidad"]!=0){
+
+@$presupuestoPromedioUtilizado=($dias["valorTransporte"]+$presupuestoExcursiones["valorExcursion"]+$presupuestoAlojamiento["valorAlojamiento"])/$viajeros["cantidad"]; }else{
+
+$presupuestoPromedioUtilizado=0;
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -198,6 +210,14 @@ $presupuestoExcursiones = $conexion->prepare("SELECT SUM(valor) AS valorExcursio
 
         $fecha_fin = strtotime($dias["llegada"]);
         $fecha_fin = date("d-m-Y", $fecha_fin);
+
+        if($fecha_inicio==="01-01-1970"){
+          $fecha_inicio="---";
+        }
+
+        if($fecha_fin==="01-01-1970"){
+          $fecha_fin="---";
+        }
 
 ?>
 

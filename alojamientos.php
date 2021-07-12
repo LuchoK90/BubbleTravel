@@ -174,7 +174,7 @@ if ( isset( $busqueda ) ){
         <div class="card-body">
           <span class="col-md-3 texto-card-body"><b><i class="far fa-calendar-alt"></i> FECHAS:</b> <?php echo  $fecha_inicio; ?> | <?php echo $fecha_fin; ?></span>
           <span class="col-md-3 texto-card-body"><b><i class="fas fa-moon"></i> NOCHES:</b> <?php echo $alojamiento["dias"]; ?></span>  
-          <span class="col-md-3 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> DESTINO:</b> <?php echo $alojamiento["destino"]; ?></span>  
+          <span class="col-md-3 texto-card-body"><b><i class="fas fa-map-marker-alt"></i> DIRECCIÓN:</b> <?php echo $alojamiento["destino"]; ?></span>  
           <span class="col-md-3 texto-card-body"><b><i class="far fa-money-bill-alt"></i> VALOR:</b> $ <?php echo $alojamiento["valor"]; ?></span> 
         </div>
       </div>
